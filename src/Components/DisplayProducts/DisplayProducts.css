@@ -1,0 +1,29 @@
+#productsContainer {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 45px;
+  padding: 40px;
+  
+}
+
+#productContainer {
+  width: 400px;
+  border : 1px solid white;
+  padding: 5px;
+  border-radius: 25px;
+}
+
+#productImage {
+  width: 150px;
+  height: 200px;
+}
+
+.description{
+  height: 72px;
+  margin: 0;
+}
+
+#Container{
+  min-height: calc(100vh - 250px);
+}
