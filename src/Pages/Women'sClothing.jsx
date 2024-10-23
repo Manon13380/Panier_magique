@@ -4,10 +4,11 @@ import useApi from "../Hooks/UseApi";
 import Layout from "../Components/Layouts";
 import { MyContext } from "../Context/AppContext";
 
+
 const WomensClothing = () => {
   const { data, isLoaded, error, fetchData } = useApi();
   const [products, setProducts] = useState([]);
-  const { store, setStore } = useContext(MyContext);
+  const { store} = useContext(MyContext);
 
   useEffect(() => {
     fetchData(
@@ -17,14 +18,13 @@ const WomensClothing = () => {
   }, []);
 
   useEffect(() => {
-    if (store.searchTerm !== "") {
-      const filteredProducts = data.filter((item) =>
-        item.title.toLowerCase().includes(store.searchTerm.toLowerCase())
-      );
-      setProducts(filteredProducts);
-    } else {
-      if (isLoaded && Array.isArray(data)) {
-        setProducts(data);
+    if (isLoaded && Array.isArray(data)) {
+      setProducts(data);
+      if (store.searchTerm !== "") {
+        const filteredProducts = data.filter((item) =>
+          item.title.toLowerCase().includes(store.searchTerm.toLowerCase())
+        );
+        setProducts(filteredProducts);
       }
     }
   }, [store.searchTerm, data, isLoaded]);

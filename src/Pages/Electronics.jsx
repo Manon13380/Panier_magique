@@ -4,24 +4,24 @@ import useApi from "../Hooks/UseApi";
 import Layout from "../Components/Layouts";
 import { MyContext } from "../Context/AppContext";
 
+
 const Electronics = () => {
   const { data, isLoaded, error, fetchData } = useApi();
   const [products, setProducts] = useState([]);
-  const { store, setStore } = useContext(MyContext);
+  const { store } = useContext(MyContext);
 
   useEffect(() => {
     fetchData("https://fakestoreapi.com/products/category/electronics", "get");
   }, []);
 
   useEffect(() => {
-    if (store.searchTerm !== "") {
-      const filteredProducts = data.filter((item) =>
-        item.title.toLowerCase().includes(store.searchTerm.toLowerCase())
-      );
-      setProducts(filteredProducts);
-    } else {
-      if (isLoaded && Array.isArray(data)) {
-        setProducts(data);
+    if (isLoaded && Array.isArray(data)) {
+      setProducts(data);
+      if (store.searchTerm !== "") {
+        const filteredProducts = data.filter((item) =>
+          item.title.toLowerCase().includes(store.searchTerm.toLowerCase())
+        );
+        setProducts(filteredProducts);
       }
     }
   }, [store.searchTerm, data, isLoaded]);
@@ -32,9 +32,16 @@ const Electronics = () => {
         {error ? (
           <div className="Container">Erreur : {error}</div>
         ) : !isLoaded ? (
-          <div className="Container">Chargement ...</div>
+          <div className="Container">
+            {" "}
+            <h2>Nos produits dans la catégorie Electronics</h2>
+            <p>Chargement ...</p>
+          </div>
         ) : products.length > 0 ? (
-          <DisplayProducts item={products} title="Nos produits dans la catégorie Electronics" />
+          <DisplayProducts
+            item={products}
+            title="Nos produits dans la catégorie Electronics"
+          />
         ) : (
           <div className="Container">
             <h2>Nos produits dans la catégorie Electronics</h2>
