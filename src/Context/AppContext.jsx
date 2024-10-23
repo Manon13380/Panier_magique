@@ -6,7 +6,8 @@ const AppContext = ({children}) => {
   const [store , setStore] = useState({
     cart : [],
     counterCart : 0,
-    totalCart : 0
+    totalCart : 0,
+    searchTerm : ''
   })
 
 

@@ -15,7 +15,7 @@ const Cart = () => {
             title="Mon panier"
           ></DisplayProducts>
         ) : (
-          <div id="Container">
+          <div className="Container">
             <h2>Mon panier</h2>
             <p>Vous n'avez pas d'article dans le panier</p>
           </div>

@@ -25,7 +25,7 @@
   margin: 0;
 }
 
-#Container{
+.Container{
   min-height: calc(100vh - 250px);
 }
 
@@ -49,4 +49,24 @@
 display: flex;
 align-items: start;
   
+}
+
+.quantity-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.quantity-container button {
+  margin: 0 5px;
+  padding: 5px 10px;
+  border: none;
+  background-color: #007bff; 
+  color: white;
+  cursor: pointer; 
+  border-radius: 4px;
+}
+
+.quantity-container button:hover {
+  background-color: #0056b3; 
 }
