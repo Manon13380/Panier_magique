@@ -1,11 +1,12 @@
 import { createContext, useState } from "react"
-import MensClothing from "../Pages/Men'sClothing";
 
 export const MyContext = createContext(null);
 
 const AppContext = ({children}) => {
   const [store , setStore] = useState({
-    cart : []
+    cart : [],
+    counterCart : 0,
+    totalCart : 0
   })
 
 

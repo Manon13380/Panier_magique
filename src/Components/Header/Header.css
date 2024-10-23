@@ -40,3 +40,18 @@
 #LogoPanier{
   width: 45px;
 }
+
+.cart-container {
+  position: relative;
+}
+
+.cart-badge {
+  background-color: rgb(187, 83, 187);
+  color: white;
+  border-radius: 50%;
+  padding: 0.2em 0.5em;
+  font-size: 0.8rem;
+  position: absolute;
+  top: -5px;
+  right: -5px;
+}

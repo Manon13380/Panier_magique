@@ -6,6 +6,7 @@ import MensClothing from "../Pages/Men'sClothing";
 import WomensClothing from "../Pages/Women'sClothing";
 import Jewelery from "../Pages/Jewelery";
 import Electronics from "../Pages/Electronics";
+import Cart from "../Pages/Cart";
 
 const Router = () => {
   return (
@@ -18,6 +19,7 @@ const Router = () => {
           <Route path = '/WomensClothing' element = {<WomensClothing/>}></Route>
           <Route path = '/Jewelery' element ={<Jewelery/>}></Route>
           <Route path = '/Electronics' element = {<Electronics/>}></Route>
+          <Route path="/Panier" element = {<Cart/>}></Route>
         </Routes>
       </AppContext>
     </>
