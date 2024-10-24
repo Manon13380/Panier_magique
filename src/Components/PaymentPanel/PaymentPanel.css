@@ -1,6 +1,6 @@
 .payment-panel {
   top: 20%;
-  right: 20px;
+  right: 90px;
   min-width: 250px;
   padding: 20px;
   background-color: #f8f9fa;
@@ -9,14 +9,16 @@
   border-radius: 8px;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
   z-index: 100;
-  margin-top: 90px;
+  
 }
 .payment-panel-fixed {
   position: fixed;
+  margin-top: 90px;
 }
 
 .payment-panel-sticky {
   position: sticky;
+  margin-top: 40px;
 }
 
 .payment-info p {

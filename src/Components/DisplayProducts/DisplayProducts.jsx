@@ -1,10 +1,14 @@
-import { useLocation } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import "../DisplayProducts/DisplayProducts.css";
 import { useContext } from "react";
 import { MyContext } from "../../Context/AppContext";
 import PaymentPanel from "../PaymentPanel/PaymentPanel";
-import { addOnCart, deleteProduct, addQuantity, removeQuantity } from '../../Utils/CartUtils';
-
+import {
+  addOnCart,
+  deleteProduct,
+  addQuantity,
+  removeQuantity,
+} from "../../Utils/CartUtils";
 
 const DisplayProducts = ({ item, title }) => {
   const location = useLocation();
@@ -16,34 +20,52 @@ const DisplayProducts = ({ item, title }) => {
         <h2>{title}</h2>
         <div id="cartContainer">
           <div id="productsContainer">
-            {item.map((product, index) => (
+            {item.map((product) => (
               <div id="productContainer" key={product.id}>
                 <img
                   id="productImage"
                   src={product.image}
                   alt="Image du produit"
                 />
-                <p className="description">{product.title}</p>
-                {location.pathname === "/Allproducts" && (
+                <p className="productTitle">{product.title}</p>
+                {location.pathname === "/Products/AllProducts" && (
                   <p>Categorie : {product.category}</p>
                 )}
-                <p>{product.price} €</p>
+                <p>Prix : {product.price} €</p>
                 {location.pathname != "/Panier" ? (
-                  <button onClick={() => addOnCart(product, store, setStore)}>
-                    Ajouter au panier
-                  </button>
+                  <div id="productButton">
+                    <Link to={`/Product/${product.id}`}>
+                      <button id="detailsButton">Détails</button>
+                    </Link>
+                    <button
+                      id="addOnCartButton"
+                      onClick={() => addOnCart(product, store, setStore)}
+                    >
+                      Ajouter au panier
+                    </button>
+                  </div>
                 ) : (
                   <>
                     <div className="quantity-container">
-                      <button onClick={() => removeQuantity(product.id, store, setStore)}>
+                      <button
+                        onClick={() =>
+                          removeQuantity(product.id, store, setStore)
+                        }
+                      >
                         -
                       </button>
                       <p>Quantité : {product.quantity}</p>
-                      <button onClick={() => addQuantity(product.id, store, setStore)}>+</button>
+                      <button
+                        onClick={() => addQuantity(product.id, store, setStore)}
+                      >
+                        +
+                      </button>
                     </div>
-                    <p>Total : {(product.quantity * product.price).toFixed(2)} €</p>
+                    <p>
+                      Total : {(product.quantity * product.price).toFixed(2)} €
+                    </p>
                     <button
-                      onClick={() => deleteProduct(product.id,store, setStore)}
+                      onClick={() => deleteProduct(product.id, store, setStore)}
                       className="close-button"
                     >
                       x
@@ -53,7 +75,7 @@ const DisplayProducts = ({ item, title }) => {
               </div>
             ))}
           </div>
-          {location.pathname === "/Panier" && <PaymentPanel></PaymentPanel>}
+          {location.pathname === "/Panier" && <Element><PaymentPanel></PaymentPanel></Element>}
         </div>
       </div>
     </>

@@ -20,13 +20,23 @@
   height: 200px;
 }
 
-.description{
+.productTitle{
   height: 72px;
   margin: 0;
 }
 
+#productButton {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
 .Container{
   min-height: calc(100vh - 250px);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  position: relative;
 }
 
 .close-button {
@@ -47,6 +57,7 @@
 
 #cartContainer {
 display: flex;
+justify-content: center;
 align-items: start;
   
 }
@@ -69,4 +80,12 @@ align-items: start;
 
 .quantity-container button:hover {
   background-color: #0056b3; 
+}
+
+#addOnCartButton{
+  background-color: orange;
+}
+
+#addOnCartButton:hover{
+  border-color: white
 }

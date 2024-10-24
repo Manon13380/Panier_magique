@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { Logo } from "../../Styled_Components/Styled_Components";
 import logo from "../../assets/images/Logo_Panier_Magique.webp";
 import "../Header/Header.css";
@@ -11,20 +11,21 @@ const Header = () => {
   const { store, setStore } = useContext(MyContext);
   const [searchTerm, setSearchTerm] = useState("");
   const timerRef = useRef(null);
+  const location = useLocation();
+  const basePath = location.pathname.split("/").slice(0, 2).join("/");
 
   useEffect(() => {
-  
-      timerRef.current = setTimeout(() => {
-        if (searchTerm.length >= 3) {
-          setStore({ ...store, searchTerm: searchTerm });
-        } else {
-          setStore({ ...store, searchTerm: "" });
-        }
-      }, 500);
-  
-      return () => clearTimeout(timerRef.current);
-  },[searchTerm]);
-  
+    timerRef.current = setTimeout(() => {
+      if (searchTerm.length >= 3) {
+        setStore({ ...store, searchTerm: searchTerm });
+      } else {
+        setStore({ ...store, searchTerm: "" });
+      }
+    }, 500);
+
+    return () => clearTimeout(timerRef.current);
+  }, [searchTerm]);
+
   return (
     <>
       <div id="header">
@@ -38,18 +39,23 @@ const Header = () => {
           <h2 id="subtitle_header">E-COMMERCE</h2>
         </div>
         <div id="rightHeader">
-          <div id="searchContainer">
-            <img id="searchIcon" src={Loupe} alt="Loupe" />{" "}
-            <input
-              onChange={(e) => {
-                setSearchTerm(e.target.value);
-              }}
-              id="searchInput"
-              type="text"
-              placeholder="Rechercher un article"
-            />
-          </div>
-          <Link className="link">Admin</Link>
+          {basePath != "/Product" && (
+            <div id="searchContainer">
+              <img id="searchIcon" src={Loupe} alt="Loupe" />{" "}
+              <input
+                onChange={(e) => {
+                  setSearchTerm(e.target.value);
+                }}
+                id="searchInput"
+                type="text"
+                placeholder="Rechercher un article"
+              />
+            </div>
+          )}
+
+          <Link to="/Login" className="link">
+            Admin
+          </Link>
           <div className="cart-container">
             <Link to={"/Panier"}>
               <img id="LogoPanier" src={Panier} alt="panier" />{" "}

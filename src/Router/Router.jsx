@@ -1,25 +1,25 @@
 import { Routes, Route } from "react-router-dom";
-import Home from "../Pages/Home";
 import AppContext from "../Context/AppContext";
-import AllProducts from "../Pages/AllProducts";
-import MensClothing from "../Pages/Men'sClothing";
-import WomensClothing from "../Pages/Women'sClothing";
-import Jewelery from "../Pages/Jewelery";
-import Electronics from "../Pages/Electronics";
 import Cart from "../Pages/Cart";
+import Login from "../Pages/Dashboaard/Login";
+import Dashboard from "../Pages/Dashboaard/Dashboard";
+import PrivateRouter from "./PrivateRouter";
+import Products from "../Pages/Products";
+import Product from "../Pages/Product/Product";
 
 const Router = () => {
   return (
     <>
       <AppContext>
         <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path='/AllProducts/' element= {<AllProducts/>}/>
-          <Route path ='/MensClothing' element={<MensClothing/>}></Route>
-          <Route path = '/WomensClothing' element = {<WomensClothing/>}></Route>
-          <Route path = '/Jewelery' element ={<Jewelery/>}></Route>
-          <Route path = '/Electronics' element = {<Electronics/>}></Route>
-          <Route path="/Panier" element = {<Cart/>}></Route>
+          <Route path="/" element={<Products />} />
+          <Route path="/Products/:category" element={<Products/>} />
+          <Route path="/Product/:id" element={<Product></Product>}></Route>
+          <Route path="/Panier" element={<Cart />}></Route>
+          <Route path="/Login" element={<Login />}></Route>
+          <Route element={<PrivateRouter />}>
+            <Route path="/Dashboard" element={<Dashboard />}></Route>
+          </Route>
         </Routes>
       </AppContext>
     </>

@@ -7,7 +7,8 @@ const AppContext = ({children}) => {
     cart : [],
     counterCart : 0,
     totalCart : 0,
-    searchTerm : ''
+    searchTerm : '',
+    currentUrl :''
   })
 
 
