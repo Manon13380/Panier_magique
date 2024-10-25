@@ -17,7 +17,7 @@ Assurez-vous d'avoir les outils suivants installés sur votre machine :
 
 # Cloner le dépôt
 
-git clone https://github.com/votre-utilisateur/votre-repo.git
+git clone https://github.com/Manon13380/Panier_magique.git
 cd votre-repo
 
 # Installer les dépendances
