@@ -3,7 +3,8 @@ import "../ProductsDashbord/ProductsDashboard.css";
 import { useContext, useEffect, useState } from "react";
 import { MyContext } from "../../Context/AppContext";
 import useApi from "../../Hooks/UseApi";
-
+import axios from "axios";
+import toastr from "toastr";
 
 const ProductsDashboard = () => {
   const { data, isLoaded, error, fetchData } = useApi();
@@ -56,6 +57,28 @@ const ProductsDashboard = () => {
     }
   }, [category]);
 
+  const deleteProduct = async (productId) => {
+    const response = await axios.delete(
+      `https://fakestoreapi.com/products/${productId}`
+    );
+    const deletedProduct = response.data;
+    if (response.data.id === productId) {
+      toastr.success(`Produit supprimé : ${deletedProduct.title}`, "Succès", {
+        closeButton: true,
+        progressBar: true,
+        positionClass: "toast-bottom-right",
+        timeOut: 3000,
+      });
+    } else {
+      toastr.error("Erreur lors de la suppression du produit", "Erreur", {
+        closeButton: true,
+        progressBar: true,
+        positionClass: "toast-bottom-right",
+        timeOut: 3000,
+      });
+    }
+  };
+
   return (
     <>
       {error ? (
@@ -68,40 +91,47 @@ const ProductsDashboard = () => {
             <h2>{title}</h2>
             <button className="create-btn">Créer un produit</button>
           </div>
-            <table className="product-table">
-              <thead>
-                <tr>
-                  <th>Image</th>
-                  <th>Catégorie</th>
-                  <th>Produit</th>
-                  <th>Description</th>
-                  <th>Prix</th>
-                  <th>Actions</th>
+          <table className="product-table">
+            <thead>
+              <tr>
+                <th>Image</th>
+                <th>Catégorie</th>
+                <th>Produit</th>
+                <th>Description</th>
+                <th>Prix</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              {data.map((product) => (
+                <tr key={product.id}>
+                  <td>
+                    <img
+                      src={product.image}
+                      alt={`Produit ${product.title}`}
+                      className="product-img"
+                    />
+                  </td>
+                  <td>{product.category}</td>
+                  <td>{product.title}</td>
+                  <td>{product.description}</td>
+                  <td>{product.price}€</td>
+                  <td className="actionButton">
+                    <button className="edit-btn">Modifier</button>
+                    <button
+                      onClick={() => {
+                        deleteProduct(product.id);
+                      }}
+                      className="delete-btn"
+                    >
+                      Supprimer
+                    </button>
+                  </td>
                 </tr>
-              </thead>
-              <tbody>
-                {data.map((product) => (
-                  <tr key={product.id}>
-                    <td>
-                      <img
-                        src={product.image}
-                        alt={`Produit ${product.title}`}
-                        className="product-img"
-                      />
-                    </td>
-                    <td>{product.category}</td>
-                    <td>{product.title}</td>
-                    <td>{product.description}</td>
-                    <td>{product.price}€</td>
-                    <td className="actionButton">
-                      <button className="edit-btn">Modifier</button>
-                      <button className="delete-btn">Supprimer</button>
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
+              ))}
+            </tbody>
+          </table>
+        </div>
       ) : (
         <div className="Container">
           <h2>{title}</h2>
