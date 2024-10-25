@@ -5,27 +5,40 @@ require('dotenv').config();
 
 const stripe = Stripe(process.env.STRIPE_SECRET_KEY);
 
+
 const app = express();
-app.use(cors()); 
-app.use(express.json()); 
+app.use(cors());
+app.use(express.json());
 
-// Endpoint pour créer un PaymentIntent (c'est ici que vous générez le client_secret)
-app.post('/create-payment-intent', async (req, res) => {
-  const { amount } = req.body; // Montant que vous envoyez du frontend (ex : 1000 = 10€)
-
+app.post('/create-checkout-session', async (req, res) => {
+  const { amount } = req.body;
   try {
-    const paymentIntent = await stripe.paymentIntents.create({
-      amount: amount,
-      currency: 'eur', 
+    const session = await stripe.checkout.sessions.create({
+      payment_method_types: ['card'],
+      line_items: [
+        {
+          price_data: {
+            currency: 'eur',
+            product_data: {
+              name: 'Votre Panier',
+            },
+            unit_amount: amount, 
+          },
+          quantity: 1,
+        },
+      ],
+      mode: 'payment',
+      success_url: 'http://localhost:5173/success',
+      cancel_url: 'http://localhost:5173/cancel',
     });
 
-    res.send({
-      clientSecret: paymentIntent.client_secret,
-    });
+    res.json({ url: session.url });
   } catch (error) {
+    console.error('back :Erreur lors de la création de la session de paiement:', error);
     res.status(500).json({ error: error.message });
   }
 });
 
 
 app.listen(4242, () => console.log('Serveur  fonctionnel sur le port 4242'));
+

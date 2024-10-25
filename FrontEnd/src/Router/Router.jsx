@@ -6,6 +6,7 @@ import Dashboard from "../Pages/Dashboaard/Dashboard";
 import PrivateRouter from "./PrivateRouter";
 import Products from "../Pages/Products";
 import Product from "../Pages/Product/Product";
+import PaymentStatus from "../Pages/PaymentStatus";
 
 const Router = () => {
   return (
@@ -14,9 +15,11 @@ const Router = () => {
         <Routes>
           <Route path="/" element={<Products />} />
           <Route path="/Products/:category" element={<Products/>} />
-          <Route path="/Product/:id" element={<Product></Product>}></Route>
+          <Route path="/Product/:id" element={<Product/>}></Route>
           <Route path="/Panier" element={<Cart />}></Route>
           <Route path="/Login" element={<Login />}></Route>
+          <Route path="/success" element={<PaymentStatus/>}></Route>
+          <Route path="/cancel" element={<PaymentStatus/>}></Route>
           <Route element={<PrivateRouter />}>
             <Route path="/Dashboard" element={<Dashboard />}></Route>
           </Route>

@@ -75,7 +75,7 @@ const DisplayProducts = ({ item, title }) => {
               </div>
             ))}
           </div>
-          {location.pathname === "/Panier" && <Element><PaymentPanel></PaymentPanel></Element>}
+          {location.pathname === "/Panier" && <PaymentPanel></PaymentPanel>}
         </div>
       </div>
     </>
