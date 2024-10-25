@@ -2,10 +2,9 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import FormLogin from "../../Components/FormLogin/FormLogin";
 import Layout from "../../Components/Layouts";
-
+import toastr from "toastr";
 
 const Login = () => {
-
   const [password, setPassword] = useState("");
   const [userName, setUserName] = useState("");
   const navigate = useNavigate();
@@ -30,22 +29,29 @@ const Login = () => {
         });
       navigate("/Dashboard");
     } else {
-      navigate("/");
+      navigate("/Login");
+      toastr.error("Utilisateur non trouvé", "Erreur", {
+        closeButton: true,
+        progressBar: true,
+        positionClass: "toast-bottom-right",
+        timeOut: 3000,
+      });
     }
   };
   return (
     <>
       <Layout>
         <div className="Container">
-        <form className="authForm" onSubmit={Authentification}>
-          <FormLogin
-            handleUserName={handleUserName}
-            handlePassword={handlePassword}
-            password={password}
-            userName={userName}
-          />
-          <button type="submit">Login</button>
-        </form>
+          <form className="authForm" onSubmit={Authentification}>
+            <h2>Connexion au Dashboard Admin</h2>
+            <FormLogin
+              handleUserName={handleUserName}
+              handlePassword={handlePassword}
+              password={password}
+              userName={userName}
+            />
+            <button type="submit">Login</button>
+          </form>
         </div>
       </Layout>
     </>

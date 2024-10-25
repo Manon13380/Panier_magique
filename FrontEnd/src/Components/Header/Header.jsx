@@ -1,4 +1,4 @@
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { Logo } from "../../Styled_Components/Styled_Components";
 import logo from "../../assets/images/Logo_Panier_Magique.webp";
 import "../Header/Header.css";
@@ -13,7 +13,8 @@ const Header = () => {
   const timerRef = useRef(null);
   const location = useLocation();
   const basePath = location.pathname.split("/").slice(0, 2).join("/");
-
+  const navigate = useNavigate();
+ 
   useEffect(() => {
     timerRef.current = setTimeout(() => {
       if (searchTerm.length >= 3) {
@@ -26,6 +27,11 @@ const Header = () => {
     return () => clearTimeout(timerRef.current);
   }, [searchTerm]);
 
+  const deconnexion = () => {
+    sessionStorage.removeItem("token");
+    navigate("/");
+  };
+
   return (
     <>
       <div id="header">
@@ -35,11 +41,17 @@ const Header = () => {
           </Link>
         </div>
         <div id="titles_header">
-          <h1 id="title_header">Panier Magique</h1>
-          <h2 id="subtitle_header">E-COMMERCE</h2>
+          <h1 id="title_header">
+            {!(location.pathname === "/Dashboard" || location.pathname.startsWith("/Dashboard/")) ? "Panier Magique" : "Dashboard"}
+          </h1>
+          <h2 id="subtitle_header">
+            {!(location.pathname === "/Dashboard" || location.pathname.startsWith("/Dashboard/"))
+              ? "E-COMMERCE"
+              : "Panier Magique"}
+          </h2>
         </div>
         <div id="rightHeader">
-          {basePath != "/Product" && (
+          {basePath != "/Product" && !(location.pathname === "/Dashboard" || location.pathname.startsWith("/Dashboard/")) && (
             <div id="searchContainer">
               <img id="searchIcon" src={Loupe} alt="Loupe" />{" "}
               <input
@@ -52,18 +64,26 @@ const Header = () => {
               />
             </div>
           )}
+          {location.pathname != "/Dashboard"  ? 
+             (
+              <Link to="/Login" className="link">
+                Admin
+              </Link>
+            
+          ) : (
+            <button onClick={() => deconnexion()}>Déconnexion</button>
+          )}
 
-          <Link to="/Login" className="link">
-            Admin
-          </Link>
-          <div className="cart-container">
-            <Link to={"/Panier"}>
-              <img id="LogoPanier" src={Panier} alt="panier" />{" "}
-              {store.cart.length > 0 && (
-                <span className="cart-badge">{store.counterCart}</span>
-              )}
-            </Link>
-          </div>
+          {location.pathname != "/Dashboard" && (
+            <div className="cart-container">
+              <Link to={"/Panier"}>
+                <img id="LogoPanier" src={Panier} alt="panier" />{" "}
+                {store.cart.length > 0 && (
+                  <span className="cart-badge">{store.counterCart}</span>
+                )}
+              </Link>
+            </div>
+          )}
         </div>
       </div>
     </>

@@ -15,7 +15,7 @@ const DisplayProducts = ({ item, title }) => {
   const { store, setStore } = useContext(MyContext);
 
   return (
-    <>
+    <div className="container">
       <div className="Container">
         <h2>{title}</h2>
         <div id="cartContainer">
@@ -78,7 +78,7 @@ const DisplayProducts = ({ item, title }) => {
           {location.pathname === "/Panier" && <PaymentPanel></PaymentPanel>}
         </div>
       </div>
-    </>
+    </div>
   );
 };
 

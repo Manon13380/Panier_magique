@@ -1,12 +1,20 @@
 #NavBar{
-    background-color: white;
+    position: fixed; 
+    top: 126px; 
+    width: 100%;
+    z-index: 1000; 
+    background-color:#242424 ;
     display: flex;
     justify-content: space-around;
     font-size: 5rem;
+    border-bottom: 1px solid white;
+    border-top: 1px solid white;
 }
 
-.custom-link {
-    color: black; 
+#NavBar a{
     text-decoration: none; 
     font-size: 1.5rem;
+}
+#NavBar a:hover{
+    color: rgb(187, 83, 187);
 }

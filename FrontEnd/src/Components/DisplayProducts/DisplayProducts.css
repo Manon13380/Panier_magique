@@ -31,12 +31,18 @@
   align-items: center;
 }
 .Container{
-  min-height: calc(100vh - 250px);
   display: flex;
   flex-direction: column;
-  justify-content: center;
   align-items: center;
   position: relative;
+  margin-top: 190px;
+  flex-grow: 1
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  min-height: calc(100vh - 70px)
 }
 
 .close-button {

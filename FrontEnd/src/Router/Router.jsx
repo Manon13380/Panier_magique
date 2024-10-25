@@ -21,7 +21,8 @@ const Router = () => {
           <Route path="/success" element={<PaymentStatus/>}></Route>
           <Route path="/cancel" element={<PaymentStatus/>}></Route>
           <Route element={<PrivateRouter />}>
-            <Route path="/Dashboard" element={<Dashboard />}></Route>
+            <Route path="/Dashboard/" element={<Dashboard />}></Route>
+            <Route path="/Dashboard/:category" element={<Dashboard />}></Route>
           </Route>
         </Routes>
       </AppContext>

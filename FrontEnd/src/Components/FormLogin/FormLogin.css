@@ -1,0 +1,17 @@
+#formLoginContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content:center;
+  align-items: center;
+  gap: 25px; 
+  margin-bottom: 25px;
+  margin-top: 50px;
+
+}
+
+.inputLogin {
+    height: 40px;
+    width: 250px;
+    border-radius: 25px;
+    text-align: center;
+}
