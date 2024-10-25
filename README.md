@@ -9,6 +9,7 @@
     - [Effectuer un paiement test](#effectuer-un-paiement-test)
         -[Paiement accepté](#paiement-accepté)
         -[Paiement refusé](#paiement-refusé)
+    - [Accès Dashboard](#accès-au-dashboard)
 
 Assurez-vous d'avoir les outils suivants installés sur votre machine :
 
@@ -78,6 +79,11 @@ Date : date supérieur à la date du jour
 numéro de carte :  4000 0000 0000 0002
 CVC : 3 chiffres aléatoires
 Date : date supérieur à la date du jour
+
+## Accès au dashboard
+
+UserName : admin
+Password : password
 
 
 
