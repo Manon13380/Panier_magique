@@ -1,4 +1,4 @@
-import { useLocation, useParams } from "react-router-dom";
+import { Link, useLocation, useParams } from "react-router-dom";
 import "../ProductsDashbord/ProductsDashboard.css";
 import { useContext, useEffect, useState } from "react";
 import { MyContext } from "../../Context/AppContext";
@@ -12,6 +12,15 @@ const ProductsDashboard = () => {
   const { category } = useParams();
   const [title, setTitle] = useState("");
   const location = useLocation();
+  const [isEditing, setIsEditing]= useState(false)
+  const [editingId, setEditingId] = useState(null);
+  const [editedProduct, setEditedProduct ] = useState({
+    image: "",
+    category: "",
+    title: "",
+    description: "",
+    price: "",
+  });
 
   useEffect(() => {
     switch (category) {
@@ -79,6 +88,47 @@ const ProductsDashboard = () => {
     }
   };
 
+  const editingProduct = (product) => {
+    setIsEditing(true)
+    setEditingId(product.id);
+    setEditedProduct({
+      image: product.image,
+      category: product.category,
+      title: product.title,
+      description: product.description,
+      price: product.price,
+    });
+  };
+
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setEditedProduct({...editedProduct,
+      [name]: value, 
+    });
+  }
+
+  const saveUpdateProduct = async (productId) => {
+    const response = await axios.put(
+      `https://fakestoreapi.com/products/${productId}`
+    );
+    if (response.data.id === productId) {
+      toastr.success(`Produit modifié avec succès`, "Succès", {
+        closeButton: true,
+        progressBar: true,
+        positionClass: "toast-bottom-right",
+        timeOut: 3000,
+      });
+      setIsEditing(false)
+      console.log(response.data)
+    } else {
+      toastr.error("Erreur lors de la modification du produit", "Erreur", {
+        closeButton: true,
+        progressBar: true,
+        positionClass: "toast-bottom-right",
+        timeOut: 3000,
+      });
+    }}
+
   return (
     <>
       {error ? (
@@ -89,7 +139,7 @@ const ProductsDashboard = () => {
         <div id="dashboardMain">
           <div id="titleBox">
             <h2>{title}</h2>
-            <button className="create-btn">Créer un produit</button>
+            <Link to='/Dashboard/CreateProduct'><button className="create-btn">Créer un produit</button></Link>
           </div>
           <table className="product-table">
             <thead>
@@ -106,18 +156,87 @@ const ProductsDashboard = () => {
               {data.map((product) => (
                 <tr key={product.id}>
                   <td>
-                    <img
-                      src={product.image}
-                      alt={`Produit ${product.title}`}
-                      className="product-img"
-                    />
+                    {editingId === product.id  && isEditing ? (
+                      <input
+                        type="text"
+                        name="image"
+                        value={editedProduct.image}
+                        onChange={handleInputChange }
+                      />
+                    ) : (
+                      <img
+                        src={product.image}
+                        alt={`Produit ${product.title}`}
+                        className="product-img"
+                      />
+                    )}
                   </td>
-                  <td>{product.category}</td>
-                  <td>{product.title}</td>
-                  <td>{product.description}</td>
-                  <td>{product.price}€</td>
+                  <td>
+                    {editingId === product.id && isEditing ? (
+                      <input
+                        type="text"
+                        name="category"
+                        value={editedProduct.category}
+                        onChange={handleInputChange }
+                      />
+                    ) : (
+                      product.category
+                    )}
+                  </td>
+                  <td>
+                    {editingId === product.id && isEditing ? (
+                      <input
+                        type="text"
+                        name="title"
+                        value={editedProduct.title}
+                        onChange={handleInputChange }
+                      />
+                    ) : (
+                      product.title
+                    )}
+                  </td>
+                  <td>
+                    {editingId === product.id && isEditing ? (
+                      <input
+                        type="text"
+                        name="description"
+                        value={editedProduct.description}
+                        onChange={handleInputChange }
+                      />
+                    ) : (
+                      product.description
+                    )}
+                  </td>
+                  <td>
+                    {" "}
+                    {editingId === product.id && isEditing ? (
+                      <input
+                        type="text"
+                        name="price"
+                        value={editedProduct.price}
+                        onChange={handleInputChange }
+                      />
+                    ) : (
+                      product.price + "€"
+                    )}
+                  </td>
                   <td className="actionButton">
-                    <button className="edit-btn">Modifier</button>
+                    {editingId === product.id && isEditing ? (
+                      <button
+                        onClick={() => saveUpdateProduct(product.id)}
+                        className="edit-validate-btn"
+                      >
+                        Valider
+                      </button>
+                    ) : (
+                      <button
+                        onClick={() => editingProduct(product)}
+                        className="edit-btn"
+                      >
+                        Modifier
+                      </button>
+                    )}
+
                     <button
                       onClick={() => {
                         deleteProduct(product.id);

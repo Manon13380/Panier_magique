@@ -52,7 +52,7 @@ const Header = () => {
           </h2>
         </div>
         <div id="rightHeader">
-          {(basePath !== "/Product" && !location.pathname.startsWith("/Dashboard")  && location.pathname != "/Login"  && location.pathname != "/Panier") && (
+          {(basePath !== "/Product" && !location.pathname.startsWith("/Dashboard")  && location.pathname != "/Login"   && location.pathname != "/success" && location.pathname != "/cancel" && location.pathname != "/Panier") && (
             <div id="searchContainer">
               <img id="searchIcon" src={Loupe} alt="Loupe" />{" "}
               <input

@@ -11,7 +11,7 @@ import axios from "axios";
 const PaymentPanel = () => {
   const { store } = useContext(MyContext);
   const paymentPanelClass =
-    store.cart.length < 3 ? "payment-panel-fixed" : "payment-panel-sticky";
+    store.cart.length < 2 ? "payment-panel-fixed" : "payment-panel-sticky";
   const totalHT = store.totalCart - store.totalCart * 0.2;
   const totalHTAPayerArrondi = totalHT.toFixed(2);
   const totalAPayerArrondi = store.totalCart.toFixed(2);
