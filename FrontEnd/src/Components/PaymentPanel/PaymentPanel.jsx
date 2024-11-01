@@ -42,7 +42,6 @@ const PaymentPanel = () => {
         <div id="LogoPaymentContainer">
           <PaymentIcon src={CBIcon}></PaymentIcon>
           <PaymentIcon src={VisaIcon}></PaymentIcon>
-          <PaymentIcon src={PaypalIcon}></PaymentIcon>
           <PaymentIcon src={AEIcon}></PaymentIcon>
         </div>
         <p>Paiement sécurisé</p>

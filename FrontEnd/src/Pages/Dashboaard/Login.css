@@ -1,0 +1,5 @@
+.loginContainer {
+  min-height: calc(100vh - 260px);
+  padding-top: 190px;
+  flex: 1;
+}

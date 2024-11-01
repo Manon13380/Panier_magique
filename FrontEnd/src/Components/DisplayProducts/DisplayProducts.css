@@ -36,13 +36,15 @@
   align-items: center;
   position: relative;
   margin-top: 190px;
-  flex-grow: 1
+  flex-grow: 1;
+  min-height: calc(100vh - 260px);
 }
 
 .container {
   display: flex;
   flex-direction: column;
-  min-height: calc(100vh - 70px)
+  min-height: calc(100vh - 70px);
+  flex: 1;
 }
 
 .close-button {

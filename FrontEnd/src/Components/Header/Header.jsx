@@ -32,7 +32,6 @@ const Header = () => {
     navigate("/");
   };
 
-  console.log()
 
   return (
     <>
@@ -53,7 +52,7 @@ const Header = () => {
           </h2>
         </div>
         <div id="rightHeader">
-          {basePath != "/Product" || !(location.pathname === "/Dashboard" || location.pathname.startsWith("/Dashboard/")) && (
+          {(basePath !== "/Product" && !location.pathname.startsWith("/Dashboard")  && location.pathname != "/Login"  && location.pathname != "/Panier") && (
             <div id="searchContainer">
               <img id="searchIcon" src={Loupe} alt="Loupe" />{" "}
               <input
@@ -66,17 +65,17 @@ const Header = () => {
               />
             </div>
           )}
-          {!(location.pathname === "/Dashboard" || location.pathname.startsWith("/Dashboard/"))  ? 
+          {!location.pathname.startsWith("/Dashboard") ? 
              (
-              <Link to="/Login" className="link">
-                Admin
+              <Link to={sessionStorage.getItem("token") ? "/Dashboard" : "/Login"} className="link">
+                {sessionStorage.getItem("token") ? "Dashboard" : "Login"}
               </Link>
             
           ) : (
             <button onClick={() => deconnexion()}>Déconnexion</button>
           )}
 
-          {!(location.pathname === "/Dashboard" || location.pathname.startsWith("/Dashboard/")) && (
+          { !location.pathname.startsWith("/Dashboard") && (
             <div className="cart-container">
               <Link to={"/Panier"}>
                 <img id="LogoPanier" src={Panier} alt="panier" />{" "}

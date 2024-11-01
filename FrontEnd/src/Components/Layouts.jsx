@@ -9,12 +9,12 @@ const Layout = ({ children }) => {
 
   const location = useLocation();
   return (
-    <div>
+    <>
       <Header />
-      {!(location.pathname === "/Dashboard" || location.pathname.startsWith("/Dashboard/")) && (<NavBar />)}
+      {!location.pathname.startsWith("/Dashboard") && (<NavBar />)}
       <main>{children}</main>
-      {!(location.pathname === "/Dashboard" || location.pathname.startsWith("/Dashboard/"))&& (<Footer />)}
-    </div>
+      {!location.pathname.startsWith("/Dashboard") && location.pathname != "/success" && location.pathname != "/cancel" && (<Footer />)}
+    </>
   );
 };
 

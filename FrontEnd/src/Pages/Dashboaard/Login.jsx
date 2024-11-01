@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import FormLogin from "../../Components/FormLogin/FormLogin";
 import Layout from "../../Components/Layouts";
 import toastr from "toastr";
+import "./Login.css";
 
 const Login = () => {
   const [password, setPassword] = useState("");
@@ -19,15 +20,25 @@ const Login = () => {
 
   const Authentification = (e) => {
     e.preventDefault();
-    if (userName == "admin" && password == "password") {
-      fetch(
-        "https://api.themoviedb.org/3/authentication/token/new?api_key=095ce1468f7fa286e78b099eb6bac9b1"
-      )
-        .then((res) => res.json())
-        .then((result) => {
-          sessionStorage.setItem("token", result.request_token);
+    if (userName == "admin") {
+      if (password == "password") {
+        fetch(
+          "https://api.themoviedb.org/3/authentication/token/new?api_key=095ce1468f7fa286e78b099eb6bac9b1"
+        )
+          .then((res) => res.json())
+          .then((result) => {
+            sessionStorage.setItem("token", result.request_token);
+            navigate("/Dashboard");
+          });
+      } else {
+        navigate("/Login");
+        toastr.error("Mauvais mot de passe", "Erreur", {
+          closeButton: true,
+          progressBar: true,
+          positionClass: "toast-bottom-right",
+          timeOut: 3000,
         });
-      navigate("/Dashboard");
+      }
     } else {
       navigate("/Login");
       toastr.error("Utilisateur non trouvé", "Erreur", {
@@ -41,7 +52,7 @@ const Login = () => {
   return (
     <>
       <Layout>
-        <div className="Container">
+        <div className=" loginContainer ">
           <form className="authForm" onSubmit={Authentification}>
             <h2>Connexion au Dashboard Admin</h2>
             <FormLogin
