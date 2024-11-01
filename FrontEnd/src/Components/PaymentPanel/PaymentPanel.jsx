@@ -4,7 +4,6 @@ import { MyContext } from "../../Context/AppContext";
 import { PaymentIcon } from "../../Styled_Components/Styled_Components";
 import AEIcon from "../../assets/images/AE.png";
 import CBIcon from "../../assets/images/CB.png";
-import PaypalIcon from "../../assets/images/paypal.png";
 import VisaIcon from "../../assets/images/visa.png";
 import axios from "axios";
 
